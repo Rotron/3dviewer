@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>3D Viewer</title>
+	</head>
+	<body onload="init()">
+		<div style="width:800px; margin:auto; position:relative; font-size: 10pt; color: #777777; border: 5px solid grey; padding: 5px">
+			<canvas id="cv" style="border: 1px solid;" width="800" height="600"></canvas>
+			<div><center>
+				<p>Place your <b>.OBJ</b> files along with all support files (material libraries, textures) in the <b>/objects</b> folder, then select the file using the file selector below.<br>Use your mouse to rotate or zoom, and select the render type from the drop down.</p>
+				<hr>
+				<p><input type="file" id="model_list" style="width:50%" value="teapot.obj" accept=".obj" onchange="loadModel();"> <select id="render_list" style="width:40%" onchange="changeRender();"><option value='texturesmooth'>Textured</option><option value='wireframe'>Wireframe</option><option value='point'>Points</option><option value='texturesmooth'>Smooth</option><option value='flat'>Solid</option></select></p>
+			</center></div>
+		</div>
+		<script type="text/javascript" src="jsc3d.js"></script>
+		<script type="text/javascript" src="jsc3d.touch.js"></script>
+		<script type="text/javascript">
+			var canvas;
+			var viewer;
+
+			function init() 
+			{
+				canvas = document.getElementById('cv');
+				viewer = new JSC3D.Viewer(canvas);
+				viewer.setParameter('SceneUrl', 'objects/teapot.obj');
+				viewer.setParameter('InitRotationX', 0);
+				viewer.setParameter('InitRotationY', -30);
+				viewer.setParameter('InitRotationZ', 0);
+				viewer.setParameter('ModelColor', '#FFFFFF');
+				viewer.setParameter('BackgroundColor1', '#AFAFAF');
+				viewer.setParameter('BackgroundColor2', '#000000');
+				viewer.setParameter('RenderMode', 'texturesmooth');
+				viewer.setParameter('MipMapping', 'on');
+				viewer.init();
+				viewer.update();
+			}
+
+			function loadModel() 
+			{
+				var models = document.getElementById('model_list');
+				viewer.replaceSceneFromUrl('objects/' + models.value);
+				viewer.update();
+			}
+
+			function changeRender()
+			{
+				var renderstyle = document.getElementById('render_list');
+				viewer.setRenderMode(renderstyle.value);
+				viewer.update();
+			}
+		</script>
+	</body>
+</html>
