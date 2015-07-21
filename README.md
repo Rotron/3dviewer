@@ -7,5 +7,5 @@ Simple desktop 3D OBJ viewer.
 3. Place any `.OBJ` files along with supporting materials and textures in the `objects` folder
 4. Select them from the web interface
 
-### Credtis:
+### Credits:
 Uses the 3D JavaScript library JSC3D by Humu <humu2009@gmail.com>.
